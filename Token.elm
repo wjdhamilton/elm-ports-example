@@ -15,6 +15,7 @@ import Html.Events exposing (onInput, onClick)
 
 type alias Model = 
   { token: String
+  , status: String
   }
 
 -- UPDATE
@@ -39,13 +40,13 @@ update msg model =
       ({model | token = t}, Cmd.none)
 
     Save ->
-      ({model | token = "saved"}, save model.token)
+      ({model | status = "saved", token = ""}, save model.token)
 
     Load ->
-      ({ model | token = "loading" }, load "")
+      ({ model | status  = "loading" }, load "")
 
     Loaded token ->
-        ({ model | token =  "loaded: " ++ token }, Cmd.none)
+        ({ model | token = token, status = "Loaded" }, Cmd.none)
 
 
 -- SUBSCRIPTIONS
@@ -66,5 +67,6 @@ view model =
       button [onClick Save] [ text "Save" ]
     , button [onClick Load] [ text "Load" ]
     , input [onInput SetToken, value model.token ] []
-    , p[] [text model.token]
+    , p[] [text <| "Token: " ++ model.token]
+    , p[] [text <| "Status: " ++ model.status ]
     ]

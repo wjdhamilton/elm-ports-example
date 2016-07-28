@@ -20,15 +20,13 @@ main =
 
 
 type alias Model = 
-  { token: String
-  , tempToken: String
-  , tokenModel: Token.Model
+  { tokenModel: Token.Model
   }
 
 
 init : (Model, Cmd Msg)
 init =
-    (Model "Empty" "" (Token.Model ""), Cmd.none)
+    (Model (Token.Model "" ""), Cmd.none)
 
 
 -- UPDATE
