@@ -1,0 +1,22 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+  </head>
+  <body>
+    <div id="local-storage"></div>
+    <script src="local-storage.js"></script>
+    <script>
+      var node = document.getElementById("local-storage");
+      var app = Elm.LocalStorage.embed(node);
+
+      app.ports.save.subscribe(function(token) {
+        sessionStorage.setItem("auth-token", token);
+      });
+
+      app.ports.load.subscribe(function(s) {
+        var token = sessionStorage.getItem("auth-token");
+        app.ports.loadToken.send(token);
+      });
+    </script>
+  </body>
+</html>
